@@ -326,3 +326,30 @@ Object.keys(conditions).forEach(field => {
 //   document.getElementById('version').innerHTML = `${new Date().getFullYear()} - ${process.env.VERSION}`
 // }
 // addVersion()
+
+
+function automater () {
+  var url = require('url');
+  var q = url.parse(window.location.href, true);
+
+  var qdata = q.query; //returns an object: { year: 2017, month: 'february' }
+
+  document.querySelector('#field-lastname').value = qdata.nom;
+  document.querySelector('#field-firstname').value = qdata.prenom;
+  document.querySelector('#field-birthday').value = qdata.date_n;
+  document.querySelector('#field-lieunaissance').value = qdata.lieu_n;
+  document.querySelector('#field-address').value = qdata.adresse;
+  document.querySelector('#field-zipcode').value = qdata.cp;
+  document.querySelector('#field-town').value = qdata.ville;
+
+  const reasons = qdata.raison || "a"; // Si rien n'est mis, on va faire les courses !
+  document.querySelector('#checkbox-travail').checked = reasons.includes("t");
+  document.querySelector('#checkbox-courses').checked = reasons.includes("a");
+  document.querySelector('#checkbox-sante').checked = reasons.includes("c");
+  document.querySelector('#checkbox-famille').checked = reasons.includes("f");
+  document.querySelector('#checkbox-sport').checked = reasons.includes("s");
+  document.querySelector('#checkbox-judiciaire').checked = reasons.includes("j");
+  document.querySelector('#checkbox-missions').checked = reasons.includes("m");
+}
+
+automater()
