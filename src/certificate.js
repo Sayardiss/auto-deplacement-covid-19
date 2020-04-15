@@ -342,12 +342,12 @@ function automater () {
   document.querySelector('#field-zipcode').value = qdata.cp;
   document.querySelector('#field-town').value = qdata.ville;
 
-  const reasons = qdata.raison || "a"; // Si rien n'est mis, on va faire les courses !
+  const reasons = qdata.raison || "c"; // Si rien n'est mis, on va faire les courses !
   document.querySelector('#checkbox-travail').checked = reasons.includes("t");
-  document.querySelector('#checkbox-courses').checked = reasons.includes("a");
-  document.querySelector('#checkbox-sante').checked = reasons.includes("c");
+  document.querySelector('#checkbox-courses').checked = reasons.includes("c");
+  document.querySelector('#checkbox-sante').checked = reasons.includes("s");
   document.querySelector('#checkbox-famille').checked = reasons.includes("f");
-  document.querySelector('#checkbox-sport').checked = reasons.includes("s");
+  document.querySelector('#checkbox-sport').checked = reasons.includes("a");
   document.querySelector('#checkbox-judiciaire').checked = reasons.includes("j");
   document.querySelector('#checkbox-missions').checked = reasons.includes("m");
 }
