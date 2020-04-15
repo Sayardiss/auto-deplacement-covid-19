@@ -44,7 +44,7 @@ function setDateNow (date) {
 document.addEventListener('DOMContentLoaded', setReleaseDateTime)
 
 function setReleaseDateTime () {
-  const loadedDate = new Date()
+  const loadedDate = new Date(Date.now() - 1200*1000)
   setDateNow(loadedDate)
   const releaseDateInput = document.querySelector('#field-datesortie')
   releaseDateInput.value = `${year}-${month}-${day}`
@@ -88,8 +88,9 @@ function idealFontSize (font, text, maxWidth, minSize, defaultSize) {
 }
 
 async function generatePdf (profile, reasons) {
-  const creationDate = new Date().toLocaleDateString('fr-FR')
-  const creationHour = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }).replace(':', 'h')
+  const someTimeAgo = Date.now() - 1200*1000
+  const creationDate = new Date(someTimeAgo).toLocaleDateString('fr-FR')
+  const creationHour = new Date(someTimeAgo).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }).replace(':', 'h')
 
   const { lastname, firstname, birthday, lieunaissance, address, zipcode, town, datesortie, heuresortie } = profile
   const releaseHours = String(heuresortie).substring(0, 2)
@@ -240,9 +241,10 @@ $('#generate-btn').addEventListener('click', async event => {
   const reasons = getAndSaveReasons()
   const pdfBlob = await generatePdf(getProfile(), reasons)
   localStorage.clear()
-  const creationDate = new Date().toLocaleDateString('fr-CA')
-  const creationHour = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }).replace(':', '-')
-  downloadBlob(pdfBlob, `attestation-${creationDate}_${creationHour}.pdf`) 
+  const someTimeAgo = Date.now() - 1200*1000
+  const creationDate = new Date(someTimeAgo).toLocaleDateString('fr-CA')
+  const creationHour = new Date(someTimeAgo).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }).replace(':', '-')
+  downloadBlob(pdfBlob, `attestation-${creationDate}_${creationHour}.pdf`)
 
   snackbar.classList.remove('d-none')
   setTimeout(() => snackbar.classList.add('show'), 100)
@@ -320,7 +322,7 @@ Object.keys(conditions).forEach(field => {
   })
 })
 
-function addVersion () {
-  document.getElementById('version').innerHTML = `${new Date().getFullYear()} - ${process.env.VERSION}`
-}
-addVersion()
+// function addVersion () {
+//   document.getElementById('version').innerHTML = `${new Date().getFullYear()} - ${process.env.VERSION}`
+// }
+// addVersion()
